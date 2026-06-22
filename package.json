@@ -1,0 +1,104 @@
+{
+  "name": "tabspicker",
+  "displayName": "Tabs Picker",
+  "description": "Neovim Telescope-style buffer picker with preview, close, and rename",
+  "version": "1.0.0",
+  "publisher": "VadimTimchenko",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wadyyyyy/TabsPicker"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.125.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:tabspicker.show",
+    "onCommand:tabspicker.closeActiveTab",
+    "onCommand:tabspicker.renameActiveTab",
+    "onCommand:tabspicker.openToSide"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "tabspicker.show",
+        "title": "Tabs: Show Open Tabs"
+      },
+      {
+        "command": "tabspicker.closeActiveTab",
+        "title": "Tabs: Close Active Tab"
+      },
+      {
+        "command": "tabspicker.renameActiveTab",
+        "title": "Tabs: Rename Active Tab"
+      },
+      {
+        "command": "tabspicker.openToSide",
+        "title": "Tabs: Open Active Tab to Side"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "tabspicker.show",
+        "key": "space ,",
+        "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
+      },
+      {
+        "command": "tabspicker.show",
+        "key": "space ,",
+        "when": "!editorTextFocus && !inputFocus"
+      },
+      {
+        "command": "tabspicker.closeActiveTab",
+        "key": "ctrl+x",
+        "when": "inTelescopeBufferPicker"
+      },
+      {
+        "command": "tabspicker.renameActiveTab",
+        "key": "ctrl+r",
+        "when": "inTelescopeBufferPicker"
+      },
+      {
+        "command": "tabspicker.openToSide",
+        "key": "ctrl+enter",
+        "when": "inTelescopeBufferPicker"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.125.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.56.1",
+    "eslint": "^9.39.3",
+    "esbuild": "^0.27.3",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  },
+  "overrides": {
+    "mocha": {
+      "serialize-javascript": "^7.0.5"
+    }
+  }
+}
