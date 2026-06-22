@@ -1,4 +1,4 @@
-# Telescope Buffers for VS Code
+# Tabs picker for VS Code
 
 Telescope-like buffer picker for VS Code.
 
